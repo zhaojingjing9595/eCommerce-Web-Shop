@@ -1,0 +1,26 @@
+{
+  "name": "ecommerce-web-shop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev":"nodemon backend/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhaojingjing9595/eCommerce-Web-Shop.git"
+  },
+  "author": "Jingjing Zhao",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zhaojingjing9595/eCommerce-Web-Shop/issues"
+  },
+  "homepage": "https://github.com/zhaojingjing9595/eCommerce-Web-Shop#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "nodemon": "^2.0.19"
+  }
+}
