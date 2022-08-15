@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/zhaojingjing9595/eCommerce-Web-Shop#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",
     "concurrently": "^7.3.0",
     "dotenv": "^16.0.1",
