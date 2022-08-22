@@ -21,7 +21,8 @@ function ProductScreen() {
 
   useEffect(() => { 
     const fetchProduct = async () => { 
-      const { data } = await axios.get(`/api/product/${id}`);
+      const { data } = await axios.get(`/api/products/${id}`);
+      console.log(data)
       setProduct(data);
     }
     fetchProduct();
@@ -32,7 +33,7 @@ function ProductScreen() {
       <Link to={'/'} className="btn btn-dark my-3">
         Go Back
       </Link>
-      <Row>
+      {product && <Row>
         <Col md={6}>
           <Image src={product.image} fluid />
         </Col>
@@ -82,7 +83,7 @@ function ProductScreen() {
             </ListGroup>
           </Card>
         </Col>
-      </Row>
+      </Row>}
     </>
   );
 }
