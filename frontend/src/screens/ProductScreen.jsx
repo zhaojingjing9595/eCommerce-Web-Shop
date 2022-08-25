@@ -1,16 +1,18 @@
 import React from 'react';
+import { useState } from 'react';
 import { useEffect } from 'react';
 import {
   Button,
   Card,
   Col,
+  Form,
   Image,
   ListGroup,
   ListGroupItem,
   Row,
 } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { GetProductDetails } from '../actions/productActions';
 import Loader from '../components/Loader';
@@ -19,24 +21,29 @@ import Rating from '../components/Rating';
 
 function ProductScreen() {
   let { id } = useParams();
+  let navigate = useNavigate();
+  const [qty, setQty] = useState(0);
   const dispatch = useDispatch();
   // select reducer's return state
   const { loading, product, error } = useSelector(
     (state) => state.productDetailReducer
   );
- 
 
   useEffect(() => {
     // dispatch actions
     dispatch(GetProductDetails(id));
   }, [dispatch, id]);
 
+  const handleAddToChart = () => {
+   navigate(`../cart/${id}?qty=${qty}`, {replace:true});
+  };
+
   return (
     <>
       <Link to={'/'} className="btn btn-dark my-3">
         Go Back
       </Link>
-       {loading ? (
+      {loading ? (
         <Loader />
       ) : error ? (
         <Message variant="danger">{error}</Message>
@@ -77,12 +84,33 @@ function ProductScreen() {
                     </Col>
                   </Row>
                 </ListGroupItem>
+                {product.countInStock > 0 && (
+                  <ListGroupItem>
+                    <Row>
+                      <Col>Qty</Col>
+                      <Col>
+                        <Form.Control
+                          as={'select'}
+                          value={qty}
+                          onChange={(e) => setQty(e.target.value)}
+                        >
+                          {[...Array(product.countInStock).keys()].map((x) => (
+                            <option key={x + 1} value={x + 1}>
+                              {x + 1}
+                            </option>
+                          ))}
+                        </Form.Control>
+                      </Col>
+                    </Row>
+                  </ListGroupItem>
+                )}
                 <ListGroupItem>
                   <Row className="px-2">
                     <Button
                       className="btn-dark"
                       type="button"
                       disabled={product.countInStock === 0}
+                      onClick={handleAddToChart}
                     >
                       ADD TO CART
                     </Button>
@@ -92,7 +120,6 @@ function ProductScreen() {
             </Card>
           </Col>
         </Row>
-       
       )}
     </>
   );
