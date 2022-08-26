@@ -26,7 +26,7 @@ function ProductScreen() {
   const dispatch = useDispatch();
   // select reducer's return state
   const { loading, product, error } = useSelector(
-    (state) => state.productDetailReducer
+    (state) => state.productDetail
   );
 
   useEffect(() => {
