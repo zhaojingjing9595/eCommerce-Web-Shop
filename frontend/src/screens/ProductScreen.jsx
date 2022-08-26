@@ -20,9 +20,9 @@ import Message from '../components/Message';
 import Rating from '../components/Rating';
 
 function ProductScreen() {
-  let { id } = useParams();
+  const { id } = useParams();
   let navigate = useNavigate();
-  const [qty, setQty] = useState(0);
+  const [qty, setQty] = useState(1);
   const dispatch = useDispatch();
   // select reducer's return state
   const { loading, product, error } = useSelector(
@@ -35,7 +35,7 @@ function ProductScreen() {
   }, [dispatch, id]);
 
   const handleAddToChart = () => {
-   navigate(`../cart/${id}?qty=${qty}`, {replace:true});
+   navigate(`../cart?productId=${id}&qty=${qty}`, {replace:true});
   };
 
   return (
