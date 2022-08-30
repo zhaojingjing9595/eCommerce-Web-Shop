@@ -12,7 +12,7 @@ import {
 } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
-import { addToCart } from '../actions/cartActions';
+import { addToCart, removeFromCart } from '../actions/cartActions';
 import Message from '../components/Message';
 
 function CartScreen() {
@@ -31,7 +31,9 @@ function CartScreen() {
     }
   }, [dispatch, productId, qty]);
 
-  const handleRemoveFromCart = (productId) => {};
+    const handleRemoveFromCart = (productId) => {
+      dispatch(removeFromCart(productId));
+  };
 
   const handleCheckout = () => {
     navigate('../login?redirect=shipping');
@@ -102,14 +104,16 @@ function CartScreen() {
                 .toFixed(2)}
             </ListGroupItem>
             <ListGroupItem>
-              <Button
-                type="button"
-                className="btn-block"
-                disabled={cartItems.length === 0}
-                onClick={handleCheckout}
-              >
-                Proceed To Checkout
-              </Button>
+              <Row className='px-3'>
+                <Button
+                  type="button"
+                  className="btn-dark"
+                  disabled={cartItems.length === 0}
+                  onClick={handleCheckout}
+                >
+                  Proceed To Checkout
+                </Button>
+              </Row>
             </ListGroupItem>
           </ListGroup>
         </Card>
